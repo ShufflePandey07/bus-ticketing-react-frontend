@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+html, body {
+  font-family: 'Poppins', sans-serif;
+  background-color: white;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%; /* Ensure the page takes the full width */
+  overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+.header {
+  background-image: url('./background.jpg'); /* Add your image path here */
+  background-size: cover; /* Ensure the image covers the entire background */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  padding: 3rem 0;
+  text-align: center; /* Center align the text */
+}
+
+.container {
+  max-width: 100%; /* Set container width to 100% */
+  margin: 0;
+  padding: 0 20px;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.highlight {
+  color: #a855f7;
+  display: block;
+}
+
+.subtitle {
+  color: #fff;
+  margin-bottom: 2rem;
+}
+
+/* Form Styles */
+.booking-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.form-select,
+.form-input,
+.submit-button {
+  padding: 0.75rem 1rem;
+  width: 40%;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.form-select,
+.form-input {
+  background-color: white;
+  color: #333;
+}
+
+.date-input {
+  position: relative;
+  width: 40%;
+}
+
+.submit-button {
+  background-color: #a855f7;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #9333ea;
+}
+
+/* Ensure the WhyUs section scrolls */
+.why-us-section {
+  flex: 1; /* Allow this section to grow and scroll */
+  padding: 2rem;
+}
+
+/* New section for other components below the header */
+.other-components {
+  padding: 3rem 0;
+  background-color: white; /* You can change this to another color if needed */
+  text-align: center;
+  margin-top: 3rem; /* Create a gap between header and other components */
+}
+
+.other-components h2 {
+  font-size: 2rem;
+  color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .booking-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-select, .form-input, .submit-button {
+    width: 100%;
+  }
+}

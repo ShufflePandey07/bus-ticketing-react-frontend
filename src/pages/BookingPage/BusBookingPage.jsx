@@ -1,4 +1,5 @@
 import React from "react";
+import ServicesPage from "../ServicesPage/ServicesPage";
 import "./BusBookingPage.css";
 
 const BusBookingPage = () => {
@@ -31,6 +32,7 @@ const BusBookingPage = () => {
           </form>
         </div>
       </header>
+      <ServicesPage />
     </div>
   );
 };

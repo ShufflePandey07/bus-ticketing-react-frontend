@@ -1,12 +1,15 @@
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Space, Table } from "antd";
+import { Button, Image, Space, Table, Typography } from "antd";
 import React from "react";
+
+const { Title, Text } = Typography;
 
 const BusDetails = () => {
   // Demo data
   const busData = [
     {
       key: "1",
+      date: "2024-09-20",
       busName: "Mountain Express",
       from: "Kathmandu",
       to: "Pokhara",
@@ -14,26 +17,10 @@ const BusDetails = () => {
       totalSeats: 40,
       totalTime: 7,
       description: "Comfortable AC bus with reclining seats",
-    },
-    {
-      key: "2",
-      busName: "Valley Rider",
-      from: "Pokhara",
-      to: "Chitwan",
-      price: 800,
-      totalSeats: 35,
-      totalTime: 5,
-      description: "Non-AC bus with regular stops",
-    },
-    {
-      key: "3",
-      busName: "Lumbini Special",
-      from: "Kathmandu",
-      to: "Lumbini",
-      price: 1500,
-      totalSeats: 30,
-      totalTime: 10,
-      description: "Luxury bus with onboard entertainment",
+      images: [
+        "https://i.pinimg.com/originals/19/49/8d/19498d607a841df9565bc028e458169d.png",
+        "https://miro.medium.com/v2/resize:fit:1400/1*J-AK5OyK3z0KYgxsJDF5wA.jpeg",
+      ],
     },
   ];
 
@@ -48,6 +35,11 @@ const BusDetails = () => {
   };
 
   const columns = [
+    {
+      title: "Date",
+      dataIndex: "date",
+      key: "date",
+    },
     {
       title: "Bus Name",
       dataIndex: "busName",
@@ -82,7 +74,22 @@ const BusDetails = () => {
       title: "Description",
       dataIndex: "description",
       key: "description",
-      // Removed ellipsis to show the full description
+      render: (text, record) => (
+        <>
+          <Text>{text}</Text>
+          <div style={{ marginTop: 10 }}>
+            {record.images.map((image, index) => (
+              <Image
+                key={index}
+                src={image}
+                alt={`Bus image ${index + 1}`}
+                width={100}
+                style={{ marginRight: 10 }}
+              />
+            ))}
+          </div>
+        </>
+      ),
     },
     {
       title: "Actions",
@@ -110,7 +117,9 @@ const BusDetails = () => {
 
   return (
     <div style={{ padding: "24px" }}>
-      <h1 style={{ textAlign: "center", marginBottom: "24px" }}>Bus Details</h1>
+      <Title level={1} style={{ textAlign: "center", marginBottom: "24px" }}>
+        Bus Details
+      </Title>
       <Table columns={columns} dataSource={busData} pagination={false} />
     </div>
   );

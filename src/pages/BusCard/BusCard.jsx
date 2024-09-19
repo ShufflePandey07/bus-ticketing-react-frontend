@@ -2,6 +2,7 @@ import {
   CarOutlined,
   ClockCircleOutlined,
   EnvironmentOutlined,
+  RightOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { Button, Card, Carousel, Col, Row, Space, Typography } from "antd";
@@ -10,9 +11,15 @@ import React, { useState } from "react";
 const { Title, Text } = Typography;
 
 const BusCard = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
   const [isSeatsVisible, setIsSeatsVisible] = useState(false);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const seatPrice = 1500;
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+    setIsSeatsVisible(false);
+  };
 
   const toggleSeatsVisibility = () => {
     setIsSeatsVisible(!isSeatsVisible);
@@ -41,9 +48,81 @@ const BusCard = () => {
     return selectedSeats.includes(seatNumber) ? "#8A2BE2" : "#4CAF50";
   };
 
-  return (
+  const BasicDetails = () => (
     <Card
       hoverable
+      onClick={toggleExpand}
+      style={{
+        width: "100%",
+        maxWidth: "100%",
+        margin: "auto",
+        marginTop: 20,
+        borderRadius: 8,
+        overflow: "hidden",
+        boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+        cursor: "pointer",
+      }}
+    >
+      <Row gutter={[16, 16]} align="middle">
+        <Col xs={24} md={12}>
+          <Title level={3} style={{ color: "#4A148C", margin: 0 }}>
+            Desh Darshan Bus Sewa
+          </Title>
+          <Text type="secondary">Tourist AC (Sofa Seater)</Text>
+        </Col>
+        <Col xs={24} md={12} style={{ textAlign: "right" }}>
+          <Text strong>30 Seats Available</Text>
+        </Col>
+
+        <Col xs={24} sm={8}>
+          <Space>
+            <EnvironmentOutlined />
+            <Text>Kathmandu</Text>
+          </Space>
+        </Col>
+
+        <Col xs={24} sm={8} style={{ textAlign: "center" }}>
+          <Space>
+            <ClockCircleOutlined style={{ color: "#4A148C" }} />
+            <Text>13 Hours</Text>
+          </Space>
+        </Col>
+
+        <Col xs={24} sm={8} style={{ textAlign: "right" }}>
+          <Space>
+            <EnvironmentOutlined />
+            <Text>Butwal</Text>
+          </Space>
+        </Col>
+
+        <Col xs={24} sm={12}>
+          <Text strong>Per Seat from</Text>
+          <Title level={3} style={{ color: "#4A148C", margin: 0 }}>
+            NPR 1500
+          </Title>
+        </Col>
+
+        <Col xs={24} sm={12} style={{ textAlign: "right" }}>
+          <Button
+            type="primary"
+            style={{
+              backgroundColor: "#4A148C",
+              borderColor: "#4A148C",
+            }}
+          >
+            View Details <RightOutlined />
+          </Button>
+        </Col>
+      </Row>
+    </Card>
+  );
+
+  if (!isExpanded) {
+    return <BasicDetails />;
+  }
+
+  return (
+    <Card
       style={{
         width: "100%",
         maxWidth: "100%",
@@ -54,6 +133,14 @@ const BusCard = () => {
         boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
       }}
     >
+      <Button
+        onClick={toggleExpand}
+        style={{ marginBottom: 16 }}
+        icon={<EnvironmentOutlined />}
+      >
+        Back to Summary
+      </Button>
+
       <Carousel autoplay style={{ marginBottom: 16 }}>
         <div>
           <img

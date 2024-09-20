@@ -72,8 +72,8 @@ const BookingForm = () => {
             />
             <Divider />
             <Statistic
-              title="Total Seats"
-              value={40}
+              title="Selected Seats"
+              value={"A1, B1, C1"}
               prefix={<TeamOutlined />}
             />
             <Divider />

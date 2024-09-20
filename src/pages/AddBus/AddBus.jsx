@@ -4,11 +4,13 @@
 //   DollarOutlined,
 //   InfoCircleOutlined,
 //   TeamOutlined,
+//   UploadOutlined,
 // } from "@ant-design/icons";
 // import {
 //   Button,
 //   Card,
 //   Col,
+//   DatePicker,
 //   Divider,
 //   Form,
 //   Input,
@@ -16,6 +18,8 @@
 //   Row,
 //   Select,
 //   Typography,
+//   Upload,
+//   message,
 // } from "antd";
 // import React from "react";
 
@@ -29,6 +33,13 @@
 //   const onFinish = (values) => {
 //     console.log("Form submitted:", values);
 //     // Add your form submission logic here
+//   };
+
+//   const mockUpload = ({ file, onSuccess }) => {
+//     setTimeout(() => {
+//       onSuccess("ok");
+//       message.success(`${file.name} file uploaded successfully`);
+//     }, 1000);
 //   };
 
 //   return (
@@ -95,6 +106,13 @@
 //               }
 //               style={{ height: "100%" }}
 //             >
+//               <Form.Item
+//                 name="date"
+//                 label="Date"
+//                 rules={[{ required: true, message: "Please select a date!" }]}
+//               >
+//                 <DatePicker style={{ width: "100%" }} />
+//               </Form.Item>
 //               <Form.Item
 //                 name="busName"
 //                 label="Bus Name"
@@ -163,6 +181,21 @@
 //                   placeholder="Enter bus description and features"
 //                 />
 //               </Form.Item>
+//               <Form.Item
+//                 name="images"
+//                 label="Bus Images"
+//                 extra="Upload up to two images"
+//               >
+//                 <Upload
+//                   name="images"
+//                   listType="picture"
+//                   maxCount={2}
+//                   customRequest={mockUpload}
+//                   accept="image/*"
+//                 >
+//                   <Button icon={<UploadOutlined />}>Upload Images</Button>
+//                 </Upload>
+//               </Form.Item>
 //             </Card>
 //           </Col>
 //         </Row>
@@ -186,6 +219,11 @@
 
 // export default AddBus;
 
+// 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+// 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+// 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+// 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+
 import {
   CarOutlined,
   ClockCircleOutlined,
@@ -203,20 +241,54 @@ import {
   Form,
   Input,
   InputNumber,
+  Radio,
   Row,
-  Select,
   Typography,
   Upload,
   message,
 } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const { Title } = Typography;
-const { Option } = Select;
 const { TextArea } = Input;
+
+const busConfigs = {
+  normal: {
+    title: "Normal Bus",
+    price: 800,
+    totalSeats: 40,
+    totalTime: 8,
+    description: "Standard bus with comfortable seating for long journeys.",
+  },
+  rocketAC: {
+    title: "Rocket AC",
+    price: 1200,
+    totalSeats: 36,
+    totalTime: 7,
+    description: "Luxury AC bus with extra legroom and onboard entertainment.",
+  },
+};
 
 const AddBus = () => {
   const [form] = Form.useForm();
+  const [busType, setBusType] = useState(null);
+
+  useEffect(() => {
+    if (busType) {
+      const selectedBusConfig = busConfigs[busType];
+      form.setFieldsValue({
+        busName: selectedBusConfig.title,
+        price: selectedBusConfig.price,
+        totalSeats: selectedBusConfig.totalSeats,
+        totalTime: selectedBusConfig.totalTime,
+        description: selectedBusConfig.description,
+        from: "",
+        to: "",
+        date: null,
+        images: [],
+      });
+    }
+  }, [busType, form]);
 
   const onFinish = (values) => {
     console.log("Form submitted:", values);
@@ -228,6 +300,10 @@ const AddBus = () => {
       onSuccess("ok");
       message.success(`${file.name} file uploaded successfully`);
     }, 1000);
+  };
+
+  const handleBusTypeChange = (e) => {
+    setBusType(e.target.value);
   };
 
   return (
@@ -251,20 +327,27 @@ const AddBus = () => {
         layout="vertical"
         requiredMark={false}
       >
+        <Form.Item
+          name="busType"
+          label="Bus Type"
+          rules={[{ required: true, message: "Please select a bus type!" }]}
+        >
+          <Radio.Group onChange={handleBusTypeChange}>
+            <Radio.Button value="normal">Normal Bus</Radio.Button>
+            <Radio.Button value="rocketAC">Rocket AC</Radio.Button>
+          </Radio.Group>
+        </Form.Item>
+
         <Row gutter={16}>
           <Col xs={24} md={12}>
             <Form.Item
               name="from"
               label="From"
               rules={[
-                { required: true, message: "Please select a boarding point!" },
+                { required: true, message: "Please enter a boarding point!" },
               ]}
             >
-              <Select placeholder="Select boarding point">
-                <Option value="Kathmandu">Kathmandu</Option>
-                <Option value="Pokhara">Pokhara</Option>
-                <Option value="Chitwan">Chitwan</Option>
-              </Select>
+              <Input placeholder="Enter boarding point" />
             </Form.Item>
           </Col>
           <Col xs={24} md={12}>
@@ -272,14 +355,10 @@ const AddBus = () => {
               name="to"
               label="To"
               rules={[
-                { required: true, message: "Please select a drop point!" },
+                { required: true, message: "Please enter a drop point!" },
               ]}
             >
-              <Select placeholder="Select drop point">
-                <Option value="Lumbini">Lumbini</Option>
-                <Option value="Butwal">Butwal</Option>
-                <Option value="Bhairahawa">Bhairahawa</Option>
-              </Select>
+              <Input placeholder="Enter drop point" />
             </Form.Item>
           </Col>
         </Row>

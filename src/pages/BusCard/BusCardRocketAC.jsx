@@ -10,7 +10,7 @@ import React, { useState } from "react";
 
 const { Title, Text } = Typography;
 
-const BusCard = () => {
+const BusCardRocketAC = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isSeatsVisible, setIsSeatsVisible] = useState(false);
   const [selectedSeats, setSelectedSeats] = useState([]);
@@ -26,11 +26,11 @@ const BusCard = () => {
   };
 
   const seats = [
-    ["Dr", "B2", "B4", "B6", "B8", "B10", "B12", "B14", "B16", "B18", "B20"],
-    ["", "B1", "B3", "B5", "B7", "B9", "B11", "B13", "B15", "B17", "B19"],
+    ["Dr", "B2", "B4", "B6", "B8", "B10", "B12", "B14", "B16", "B18"],
+    ["", "B1", "B3", "B5", "B7", "B9", "B11", "B13", "B15", "B17"],
     [""],
-    ["", "A1", "A3", "A5", "A7", "A9", "A11", "A13", "A15", "A17", "A19"],
-    ["", "A2", "A4", "A6", "A8", "A10", "A12", "A14", "A16", "A18", "A20"],
+    ["", "A1", "A3", "A5", "A7", "A9", "A11", "A13", "A15", "A17"],
+    ["", "A2", "A4", "A6", "A8", "A10", "A12", "A14", "A16", "A18"],
   ];
 
   const handleSeatClick = (seatNumber) => {
@@ -66,7 +66,7 @@ const BusCard = () => {
       <Row gutter={[16, 16]} align="middle">
         <Col xs={24} md={12}>
           <Title level={3} style={{ color: "#4A148C", margin: 0 }}>
-            Desh Darshan Bus Sewa
+            Rocket AC
           </Title>
           <Text type="secondary">Tourist AC (Sofa Seater)</Text>
         </Col>
@@ -234,6 +234,7 @@ const BusCard = () => {
                   borderRadius: "16px",
                   boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1)",
                   padding: "20px",
+                  width: "80%",
                 }}
               >
                 <div
@@ -249,7 +250,7 @@ const BusCard = () => {
                       style={{
                         display: "flex",
                         justifyContent: "space-between",
-                        width: "100%",
+                        width: "90%",
                         marginBottom: "10px",
                       }}
                     >
@@ -305,6 +306,7 @@ const BusCard = () => {
                   backgroundColor: "#f0ffff",
                   borderRadius: "16px",
                   boxShadow: "0 10px 20px rgba(0, 0, 0, 0.1)",
+                  padding: "20px",
                 }}
               >
                 <Space
@@ -347,4 +349,4 @@ const BusCard = () => {
   );
 };
 
-export default BusCard;
+export default BusCardRocketAC;

@@ -1,229 +1,3 @@
-// import {
-//   CarOutlined,
-//   ClockCircleOutlined,
-//   DollarOutlined,
-//   InfoCircleOutlined,
-//   TeamOutlined,
-//   UploadOutlined,
-// } from "@ant-design/icons";
-// import {
-//   Button,
-//   Card,
-//   Col,
-//   DatePicker,
-//   Divider,
-//   Form,
-//   Input,
-//   InputNumber,
-//   Row,
-//   Select,
-//   Typography,
-//   Upload,
-//   message,
-// } from "antd";
-// import React from "react";
-
-// const { Title } = Typography;
-// const { Option } = Select;
-// const { TextArea } = Input;
-
-// const AddBus = () => {
-//   const [form] = Form.useForm();
-
-//   const onFinish = (values) => {
-//     console.log("Form submitted:", values);
-//     // Add your form submission logic here
-//   };
-
-//   const mockUpload = ({ file, onSuccess }) => {
-//     setTimeout(() => {
-//       onSuccess("ok");
-//       message.success(`${file.name} file uploaded successfully`);
-//     }, 1000);
-//   };
-
-//   return (
-//     <Card
-//       style={{
-//         maxWidth: 800,
-//         margin: "0 auto",
-//         boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-//         borderRadius: 8,
-//       }}
-//     >
-//       <Title level={2} style={{ textAlign: "center", color: "#1890ff" }}>
-//         Add New Bus
-//       </Title>
-//       <Divider />
-
-//       <Form
-//         form={form}
-//         name="bus_details"
-//         onFinish={onFinish}
-//         layout="vertical"
-//         requiredMark={false}
-//       >
-//         <Row gutter={16}>
-//           <Col xs={24} md={12}>
-//             <Form.Item
-//               name="from"
-//               label="From"
-//               rules={[
-//                 { required: true, message: "Please select a boarding point!" },
-//               ]}
-//             >
-//               <Select placeholder="Select boarding point">
-//                 <Option value="Kathmandu">Kathmandu</Option>
-//                 <Option value="Pokhara">Pokhara</Option>
-//                 <Option value="Chitwan">Chitwan</Option>
-//               </Select>
-//             </Form.Item>
-//           </Col>
-//           <Col xs={24} md={12}>
-//             <Form.Item
-//               name="to"
-//               label="To"
-//               rules={[
-//                 { required: true, message: "Please select a drop point!" },
-//               ]}
-//             >
-//               <Select placeholder="Select drop point">
-//                 <Option value="Lumbini">Lumbini</Option>
-//                 <Option value="Butwal">Butwal</Option>
-//                 <Option value="Bhairahawa">Bhairahawa</Option>
-//               </Select>
-//             </Form.Item>
-//           </Col>
-//         </Row>
-
-//         <Row gutter={[24, 24]}>
-//           <Col xs={24} md={12}>
-//             <Card
-//               title={
-//                 <span>
-//                   <CarOutlined /> Bus Information
-//                 </span>
-//               }
-//               style={{ height: "100%" }}
-//             >
-//               <Form.Item
-//                 name="date"
-//                 label="Date"
-//                 rules={[{ required: true, message: "Please select a date!" }]}
-//               >
-//                 <DatePicker style={{ width: "100%" }} />
-//               </Form.Item>
-//               <Form.Item
-//                 name="busName"
-//                 label="Bus Name"
-//                 rules={[{ required: true, message: "Please enter bus name!" }]}
-//               >
-//                 <Input prefix={<CarOutlined />} placeholder="Enter bus name" />
-//               </Form.Item>
-//               <Form.Item
-//                 name="price"
-//                 label="Price (NPR)"
-//                 rules={[{ required: true, message: "Please enter price!" }]}
-//               >
-//                 <InputNumber
-//                   style={{ width: "100%" }}
-//                   prefix={<DollarOutlined />}
-//                   placeholder="Enter price"
-//                 />
-//               </Form.Item>
-//               <Form.Item
-//                 name="totalSeats"
-//                 label="Total Seats"
-//                 rules={[
-//                   { required: true, message: "Please enter total seats!" },
-//                 ]}
-//               >
-//                 <InputNumber
-//                   style={{ width: "100%" }}
-//                   prefix={<TeamOutlined />}
-//                   placeholder="Enter total seats"
-//                 />
-//               </Form.Item>
-//               <Form.Item
-//                 name="totalTime"
-//                 label="Total Time (Hours)"
-//                 rules={[
-//                   { required: true, message: "Please enter total time!" },
-//                 ]}
-//               >
-//                 <InputNumber
-//                   style={{ width: "100%" }}
-//                   prefix={<ClockCircleOutlined />}
-//                   placeholder="Enter total time"
-//                 />
-//               </Form.Item>
-//             </Card>
-//           </Col>
-
-//           <Col xs={24} md={12}>
-//             <Card
-//               title={
-//                 <span>
-//                   <InfoCircleOutlined /> Description
-//                 </span>
-//               }
-//               style={{ height: "100%" }}
-//             >
-//               <Form.Item
-//                 name="description"
-//                 label="Bus Description"
-//                 rules={[
-//                   { required: true, message: "Please enter bus description!" },
-//                 ]}
-//               >
-//                 <TextArea
-//                   rows={4}
-//                   placeholder="Enter bus description and features"
-//                 />
-//               </Form.Item>
-//               <Form.Item
-//                 name="images"
-//                 label="Bus Images"
-//                 extra="Upload up to two images"
-//               >
-//                 <Upload
-//                   name="images"
-//                   listType="picture"
-//                   maxCount={2}
-//                   customRequest={mockUpload}
-//                   accept="image/*"
-//                 >
-//                   <Button icon={<UploadOutlined />}>Upload Images</Button>
-//                 </Upload>
-//               </Form.Item>
-//             </Card>
-//           </Col>
-//         </Row>
-
-//         <Form.Item>
-//           <Button
-//             type="primary"
-//             htmlType="submit"
-//             size="large"
-//             block
-//             icon={<CarOutlined />}
-//             style={{ marginTop: 16 }}
-//           >
-//             Add Bus
-//           </Button>
-//         </Form.Item>
-//       </Form>
-//     </Card>
-//   );
-// };
-
-// export default AddBus;
-
-// 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
-// 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
-// 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
-// 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
-
 import {
   CarOutlined,
   ClockCircleOutlined,
@@ -241,15 +15,17 @@ import {
   Form,
   Input,
   InputNumber,
+  message,
   Radio,
   Row,
+  Space,
   Typography,
   Upload,
-  message,
 } from "antd";
+import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 const { TextArea } = Input;
 
 const busConfigs = {
@@ -292,7 +68,7 @@ const AddBus = () => {
 
   const onFinish = (values) => {
     console.log("Form submitted:", values);
-    // Add your form submission logic here
+    message.success("Bus added successfully!");
   };
 
   const mockUpload = ({ file, onSuccess }) => {
@@ -306,181 +82,278 @@ const AddBus = () => {
     setBusType(e.target.value);
   };
 
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
   return (
-    <Card
-      style={{
-        maxWidth: 800,
-        margin: "0 auto",
-        boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-        borderRadius: 8,
-      }}
-    >
-      <Title level={2} style={{ textAlign: "center", color: "#1890ff" }}>
-        Add New Bus
-      </Title>
-      <Divider />
-
-      <Form
-        form={form}
-        name="bus_details"
-        onFinish={onFinish}
-        layout="vertical"
-        requiredMark={false}
+    <motion.div initial="hidden" animate="visible" variants={cardVariants}>
+      <Card
+        style={{
+          maxWidth: 1000,
+          margin: "0 auto",
+          boxShadow: "0 8px 16px rgba(0,0,0,0.1)",
+          borderRadius: 16,
+          background: "linear-gradient(145deg, #f0f0f0, #ffffff)",
+        }}
       >
-        <Form.Item
-          name="busType"
-          label="Bus Type"
-          rules={[{ required: true, message: "Please select a bus type!" }]}
+        <Title
+          level={1}
+          style={{ textAlign: "center", color: "#1890ff", fontSize: "2.5rem" }}
         >
-          <Radio.Group onChange={handleBusTypeChange}>
-            <Radio.Button value="normal">Normal Bus</Radio.Button>
-            <Radio.Button value="rocketAC">Rocket AC</Radio.Button>
-          </Radio.Group>
-        </Form.Item>
+          Add New Bus
+        </Title>
+        <Divider style={{ borderColor: "#1890ff" }} />
 
-        <Row gutter={16}>
-          <Col xs={24} md={12}>
-            <Form.Item
-              name="from"
-              label="From"
-              rules={[
-                { required: true, message: "Please enter a boarding point!" },
-              ]}
-            >
-              <Input placeholder="Enter boarding point" />
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={12}>
-            <Form.Item
-              name="to"
-              label="To"
-              rules={[
-                { required: true, message: "Please enter a drop point!" },
-              ]}
-            >
-              <Input placeholder="Enter drop point" />
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row gutter={[24, 24]}>
-          <Col xs={24} md={12}>
-            <Card
-              title={
-                <span>
-                  <CarOutlined /> Bus Information
-                </span>
-              }
-              style={{ height: "100%" }}
-            >
-              <Form.Item
-                name="date"
-                label="Date"
-                rules={[{ required: true, message: "Please select a date!" }]}
-              >
-                <DatePicker style={{ width: "100%" }} />
-              </Form.Item>
-              <Form.Item
-                name="busName"
-                label="Bus Name"
-                rules={[{ required: true, message: "Please enter bus name!" }]}
-              >
-                <Input prefix={<CarOutlined />} placeholder="Enter bus name" />
-              </Form.Item>
-              <Form.Item
-                name="price"
-                label="Price (NPR)"
-                rules={[{ required: true, message: "Please enter price!" }]}
-              >
-                <InputNumber
-                  style={{ width: "100%" }}
-                  prefix={<DollarOutlined />}
-                  placeholder="Enter price"
-                />
-              </Form.Item>
-              <Form.Item
-                name="totalSeats"
-                label="Total Seats"
-                rules={[
-                  { required: true, message: "Please enter total seats!" },
-                ]}
-              >
-                <InputNumber
-                  style={{ width: "100%" }}
-                  prefix={<TeamOutlined />}
-                  placeholder="Enter total seats"
-                />
-              </Form.Item>
-              <Form.Item
-                name="totalTime"
-                label="Total Time (Hours)"
-                rules={[
-                  { required: true, message: "Please enter total time!" },
-                ]}
-              >
-                <InputNumber
-                  style={{ width: "100%" }}
-                  prefix={<ClockCircleOutlined />}
-                  placeholder="Enter total time"
-                />
-              </Form.Item>
-            </Card>
-          </Col>
-
-          <Col xs={24} md={12}>
-            <Card
-              title={
-                <span>
-                  <InfoCircleOutlined /> Description
-                </span>
-              }
-              style={{ height: "100%" }}
-            >
-              <Form.Item
-                name="description"
-                label="Bus Description"
-                rules={[
-                  { required: true, message: "Please enter bus description!" },
-                ]}
-              >
-                <TextArea
-                  rows={4}
-                  placeholder="Enter bus description and features"
-                />
-              </Form.Item>
-              <Form.Item
-                name="images"
-                label="Bus Images"
-                extra="Upload up to two images"
-              >
-                <Upload
-                  name="images"
-                  listType="picture"
-                  maxCount={2}
-                  customRequest={mockUpload}
-                  accept="image/*"
-                >
-                  <Button icon={<UploadOutlined />}>Upload Images</Button>
-                </Upload>
-              </Form.Item>
-            </Card>
-          </Col>
-        </Row>
-
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            size="large"
-            block
-            icon={<CarOutlined />}
-            style={{ marginTop: 16 }}
+        <Form
+          form={form}
+          name="bus_details"
+          onFinish={onFinish}
+          layout="vertical"
+          requiredMark={false}
+          size="large"
+        >
+          <Form.Item
+            name="busType"
+            label={
+              <Text strong style={{ fontSize: "1.2rem" }}>
+                Bus Type
+              </Text>
+            }
+            rules={[{ required: true, message: "Please select a bus type!" }]}
           >
-            Add Bus
-          </Button>
-        </Form.Item>
-      </Form>
-    </Card>
+            <Radio.Group
+              onChange={handleBusTypeChange}
+              buttonStyle="solid"
+              size="large"
+            >
+              <Radio.Button value="normal">Normal Bus</Radio.Button>
+              <Radio.Button value="rocketAC">Rocket AC</Radio.Button>
+            </Radio.Group>
+          </Form.Item>
+
+          <Row gutter={24}>
+            <Col xs={24} md={12}>
+              <Form.Item
+                name="from"
+                label={
+                  <Text strong style={{ fontSize: "1.2rem" }}>
+                    From
+                  </Text>
+                }
+                rules={[
+                  { required: true, message: "Please enter a boarding point!" },
+                ]}
+              >
+                <Input placeholder="Enter boarding point" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} md={12}>
+              <Form.Item
+                name="to"
+                label={
+                  <Text strong style={{ fontSize: "1.2rem" }}>
+                    To
+                  </Text>
+                }
+                rules={[
+                  { required: true, message: "Please enter a drop point!" },
+                ]}
+              >
+                <Input placeholder="Enter drop point" />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Row gutter={[24, 24]}>
+            <Col xs={24} md={12}>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <Card
+                  title={
+                    <Space>
+                      <CarOutlined
+                        style={{ fontSize: "1.5rem", color: "#1890ff" }}
+                      />
+                      <Text strong style={{ fontSize: "1.3rem" }}>
+                        Bus Information
+                      </Text>
+                    </Space>
+                  }
+                  style={{
+                    height: "100%",
+                    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                  }}
+                >
+                  <Form.Item
+                    name="date"
+                    label={
+                      <Text strong style={{ fontSize: "1.2rem" }}>
+                        Date
+                      </Text>
+                    }
+                    rules={[
+                      { required: true, message: "Please select a date!" },
+                    ]}
+                  >
+                    <DatePicker style={{ width: "100%" }} />
+                  </Form.Item>
+                  <Form.Item
+                    name="busName"
+                    label={
+                      <Text strong style={{ fontSize: "1.2rem" }}>
+                        Bus Name
+                      </Text>
+                    }
+                    rules={[
+                      { required: true, message: "Please enter bus name!" },
+                    ]}
+                  >
+                    <Input
+                      prefix={<CarOutlined />}
+                      placeholder="Enter bus name"
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name="price"
+                    label={
+                      <Text strong style={{ fontSize: "1.2rem" }}>
+                        Price (NPR)
+                      </Text>
+                    }
+                    rules={[{ required: true, message: "Please enter price!" }]}
+                  >
+                    <InputNumber
+                      style={{ width: "100%" }}
+                      prefix={<DollarOutlined />}
+                      placeholder="Enter price"
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name="totalSeats"
+                    label={
+                      <Text strong style={{ fontSize: "1.2rem" }}>
+                        Total Seats
+                      </Text>
+                    }
+                    rules={[
+                      { required: true, message: "Please enter total seats!" },
+                    ]}
+                  >
+                    <InputNumber
+                      style={{ width: "100%" }}
+                      prefix={<TeamOutlined />}
+                      placeholder="Enter total seats"
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name="totalTime"
+                    label={
+                      <Text strong style={{ fontSize: "1.2rem" }}>
+                        Total Time (Hours)
+                      </Text>
+                    }
+                    rules={[
+                      { required: true, message: "Please enter total time!" },
+                    ]}
+                  >
+                    <InputNumber
+                      style={{ width: "100%" }}
+                      prefix={<ClockCircleOutlined />}
+                      placeholder="Enter total time"
+                    />
+                  </Form.Item>
+                </Card>
+              </motion.div>
+            </Col>
+
+            <Col xs={24} md={12}>
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <Card
+                  title={
+                    <Space>
+                      <InfoCircleOutlined
+                        style={{ fontSize: "1.5rem", color: "#1890ff" }}
+                      />
+                      <Text strong style={{ fontSize: "1.3rem" }}>
+                        Description
+                      </Text>
+                    </Space>
+                  }
+                  style={{
+                    height: "100%",
+                    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                  }}
+                >
+                  <Form.Item
+                    name="description"
+                    label={
+                      <Text strong style={{ fontSize: "1.2rem" }}>
+                        Bus Description
+                      </Text>
+                    }
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter bus description!",
+                      },
+                    ]}
+                  >
+                    <TextArea
+                      rows={4}
+                      placeholder="Enter bus description and features"
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    name="images"
+                    label={
+                      <Text strong style={{ fontSize: "1.2rem" }}>
+                        Bus Images
+                      </Text>
+                    }
+                    extra="Upload up to two images"
+                  >
+                    <Upload
+                      name="images"
+                      listType="picture-card"
+                      maxCount={2}
+                      customRequest={mockUpload}
+                      accept="image/*"
+                    >
+                      <div>
+                        <UploadOutlined />
+                        <div style={{ marginTop: 8 }}>Upload</div>
+                      </div>
+                    </Upload>
+                  </Form.Item>
+                </Card>
+              </motion.div>
+            </Col>
+          </Row>
+
+          <Form.Item>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                size="large"
+                icon={<CarOutlined />}
+                style={{ marginTop: 24, height: 50, fontSize: "1.2rem" }}
+                block
+              >
+                Add Bus
+              </Button>
+            </motion.div>
+          </Form.Item>
+        </Form>
+      </Card>
+    </motion.div>
   );
 };
 

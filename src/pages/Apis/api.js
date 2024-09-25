@@ -9,5 +9,22 @@ const Api = axios.create({
   },
 });
 
+const config = {
+  headers: {
+    authorization: "Bearer " + localStorage.getItem("token"),
+  },
+};
+
 // Register user
 export const registerUserApi = (data) => Api.post("/api/user/create", data);
+
+// Login user
+export const loginUserApi = (data) => Api.post("/api/user/login", data);
+
+// get single user
+export const getSingleUserApi = () =>
+  Api.get(`/api/user/get_single_user`, config);
+
+// update profile
+export const updateProfileApi = (id, userData) =>
+  Api.put(`/api/user/update_profile`, userData, config);

@@ -1,10 +1,27 @@
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Button, Image, Space, Table, Typography } from "antd";
-import React from "react";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  InfoCircleOutlined,
+} from "@ant-design/icons";
+import {
+  Button,
+  Card,
+  Image,
+  Modal,
+  Space,
+  Table,
+  Tooltip,
+  Typography,
+} from "antd";
+import { AnimatePresence, motion } from "framer-motion";
+import React, { useState } from "react";
 
 const { Title, Text } = Typography;
 
 const BusDetails = () => {
+  const [selectedBus, setSelectedBus] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   // Demo data
   const busData = [
     {
@@ -22,6 +39,7 @@ const BusDetails = () => {
         "https://miro.medium.com/v2/resize:fit:1400/1*J-AK5OyK3z0KYgxsJDF5wA.jpeg",
       ],
     },
+    // Add more demo data here if needed
   ];
 
   const handleEdit = (record) => {
@@ -32,6 +50,15 @@ const BusDetails = () => {
   const handleDelete = (record) => {
     console.log("Delete record", record);
     // Implement delete logic here
+  };
+
+  const showModal = (record) => {
+    setSelectedBus(record);
+    setIsModalVisible(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalVisible(false);
   };
 
   const columns = [
@@ -71,57 +98,138 @@ const BusDetails = () => {
       key: "totalTime",
     },
     {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
-      render: (text, record) => (
-        <>
-          <Text>{text}</Text>
-          <div style={{ marginTop: 10 }}>
-            {record.images.map((image, index) => (
-              <Image
-                key={index}
-                src={image}
-                alt={`Bus image ${index + 1}`}
-                width={100}
-                style={{ marginRight: 10 }}
-              />
-            ))}
-          </div>
-        </>
-      ),
-    },
-    {
       title: "Actions",
       key: "actions",
       render: (_, record) => (
         <Space size="middle">
-          <Button
-            type="primary"
-            icon={<EditOutlined />}
-            onClick={() => handleEdit(record)}
-          >
-            Edit
-          </Button>
-          <Button
-            type="danger"
-            icon={<DeleteOutlined />}
-            onClick={() => handleDelete(record)}
-          >
-            Delete
-          </Button>
+          <Tooltip title="View Details">
+            <Button
+              type="default"
+              icon={<InfoCircleOutlined />}
+              onClick={() => showModal(record)}
+            />
+          </Tooltip>
+          <Tooltip title="Edit">
+            <Button
+              type="primary"
+              icon={<EditOutlined />}
+              onClick={() => handleEdit(record)}
+            />
+          </Tooltip>
+          <Tooltip title="Delete">
+            <Button
+              type="primary"
+              danger
+              icon={<DeleteOutlined />}
+              onClick={() => handleDelete(record)}
+            />
+          </Tooltip>
         </Space>
       ),
     },
   ];
 
   return (
-    <div style={{ padding: "24px" }}>
-      <Title level={1} style={{ textAlign: "center", marginBottom: "24px" }}>
-        Bus Details
-      </Title>
-      <Table columns={columns} dataSource={busData} pagination={false} />
-    </div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Card
+        title={
+          <Title level={2} style={{ margin: 0, color: "#1890ff" }}>
+            Bus Details
+          </Title>
+        }
+        style={{
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+          borderRadius: "8px",
+          overflow: "hidden",
+        }}
+      >
+        <Table
+          columns={columns}
+          dataSource={busData}
+          pagination={{ pageSize: 5 }}
+          rowKey="key"
+          components={{
+            body: {
+              row: motion.tr,
+              cell: motion.td,
+            },
+          }}
+        />
+      </Card>
+
+      <AnimatePresence>
+        {isModalVisible && (
+          <Modal
+            title={<Title level={3}>{selectedBus?.busName}</Title>}
+            visible={isModalVisible}
+            onCancel={handleModalClose}
+            footer={null}
+            width={800}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Space
+                direction="vertical"
+                size="large"
+                style={{ width: "100%" }}
+              >
+                <div>
+                  <Text strong>Date:</Text> {selectedBus?.date}
+                </div>
+                <div>
+                  <Text strong>From:</Text> {selectedBus?.from}
+                </div>
+                <div>
+                  <Text strong>To:</Text> {selectedBus?.to}
+                </div>
+                <div>
+                  <Text strong>Price:</Text> NPR {selectedBus?.price}
+                </div>
+                <div>
+                  <Text strong>Total Seats:</Text> {selectedBus?.totalSeats}
+                </div>
+                <div>
+                  <Text strong>Total Time:</Text> {selectedBus?.totalTime} hours
+                </div>
+                <div>
+                  <Text strong>Description:</Text> {selectedBus?.description}
+                </div>
+                <div>
+                  <Text strong>Images:</Text>
+                  <div style={{ marginTop: 10 }}>
+                    {selectedBus?.images.map((image, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: index * 0.2 }}
+                        style={{ display: "inline-block", marginRight: 10 }}
+                      >
+                        <Image
+                          src={image}
+                          alt={`Bus image ${index + 1}`}
+                          width={200}
+                          style={{ borderRadius: "8px" }}
+                        />
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </Space>
+            </motion.div>
+          </Modal>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 };
 

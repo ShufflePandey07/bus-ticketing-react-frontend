@@ -19,6 +19,7 @@ html, body {
   background-repeat: no-repeat; /* Prevent the image from repeating */
   padding: 3rem 0;
   text-align: center; /* Center align the text */
+  width: 100%; /* Ensure the header takes the full width */
 }
 
 .container {
@@ -35,7 +36,7 @@ html, body {
 }
 
 .highlight {
-  color: #a855f7;
+  color: #4D4DFF;
   display: block;
 }
 
@@ -75,7 +76,7 @@ html, body {
 }
 
 .submit-button {
-  background-color: #a855f7;
+  background-color: #4D4DFF;
   color: white;
   font-weight: 600;
   cursor: pointer;
